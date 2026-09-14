@@ -62,7 +62,7 @@
 /* next/font sets these variables on <html>; `inline` makes the utilities emit
    var(--font-*) at the element so the fallback stack survives. */
 @theme inline {
-  --font-display: var(--font-display-face), "Iowan Old Style", Georgia, serif;
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
 }
 

@@ -69,12 +69,25 @@ export function RevealController() {
               onUpdate: () => {
                 element.textContent = String(Math.round(counter.value));
               },
+              // Land on the exact figure. Rounding during the tween can stop a
+              // frame short, and a number on this page is a fact, not a flourish.
+              onComplete: () => {
+                element.textContent = String(target);
+              },
             });
           }
         },
       });
 
-      return () => ScrollTrigger.removeEventListener('refresh', revealPassed);
+      return () => {
+        ScrollTrigger.removeEventListener('refresh', revealPassed);
+        // If the context is reverted mid-count, leave the real number behind
+        // rather than whatever the tween had reached.
+        for (const element of gsap.utils.toArray<HTMLElement>('[data-count]')) {
+          const target = element.getAttribute('data-count');
+          if (target) element.textContent = target;
+        }
+      };
     });
 
     // Webfonts change every measurement, so recalculate once they land.
