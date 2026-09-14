@@ -13,9 +13,11 @@ import {
   MonitorCheck,
   NotebookPen,
   Phone,
+  Quote,
   Scale,
   Search,
   ShieldCheck,
+  Star,
   Users,
   Video,
 } from 'lucide-react';
@@ -41,6 +43,8 @@ const ICONS = {
   check: Check,
   'graduation-cap': GraduationCap,
   'notebook-pen': NotebookPen,
+  star: Star,
+  quote: Quote,
 } as const satisfies Record<IconName, unknown>;
 
 interface IconProps {

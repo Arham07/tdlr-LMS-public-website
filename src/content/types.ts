@@ -81,6 +81,8 @@ export interface ProgramCard {
   statusLabel: string;
   title: string;
   body: string;
+  /** Format badge, as the reference providers show it, e.g. "15-hour Zoom class". */
+  format: string;
   /** Quick facts printed as a single meta row; empty for a planned program. */
   meta: readonly string[];
   links: readonly Cta[];
@@ -109,7 +111,10 @@ export interface Testimonial extends Placeholder {
   id: string;
   quote: string;
   initials: string;
+  name: string;
   attribution: string;
+  /** Whole stars out of five. */
+  rating: number;
 }
 
 export interface FaqItem {

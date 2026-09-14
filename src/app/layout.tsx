@@ -4,7 +4,7 @@ import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { SITE } from '@/lib/site';
-import { fraunces, manrope } from './fonts';
+import { bodyFont, displayFont } from './fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="min-h-dvh bg-ground font-sans text-ink antialiased">
         <SkipLink />
         <SmoothScroll>

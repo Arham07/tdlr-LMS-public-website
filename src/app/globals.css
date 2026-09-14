@@ -62,8 +62,8 @@
 /* next/font sets these variables on <html>; `inline` makes the utilities emit
    var(--font-*) at the element so the fallback stack survives. */
 @theme inline {
-  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Header state toggled by ScrollTrigger (components/layout/HeaderChrome.tsx). */
@@ -81,10 +81,8 @@
 
   :where(h1, h2, h3) {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 600;
     text-wrap: balance;
-    font-optical-sizing: auto;
-    font-variation-settings: "SOFT" 40, "WONK" 0;
   }
 
   :where(p, li) {

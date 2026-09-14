@@ -25,6 +25,8 @@ export const ICON_NAMES = [
   'check',
   'graduation-cap',
   'notebook-pen',
+  'star',
+  'quote',
 ] as const;
 
 export type IconName = (typeof ICON_NAMES)[number];

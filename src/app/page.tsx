@@ -56,7 +56,7 @@ export default function Home() {
           seats: session.seatsLabel,
         }))}
         cardPrice={firstSession ? formatPrice(firstSession.priceCents) : ''}
-        phoneIsPlaceholder={SITE.phone.placeholder}
+        licenseLabel={`TDLR provider licence #${SITE.license.number} · Serving all of ${SITE.state}`}
       />
 
       <QuickFacts title={HOME.stats.title} items={HOME.stats.items} />
@@ -66,6 +66,7 @@ export default function Home() {
         title={HOME.programs.title}
         lede={HOME.programs.lede}
         items={HOME.programs.items}
+        image={IMAGES.program}
       />
 
       <HowItWorks

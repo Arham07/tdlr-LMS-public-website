@@ -4,8 +4,8 @@
  * Mirrors the shape of the future Payload `SiteSettings` global, so Phase 1
  * replaces this module's values with CMS data without touching components.
  *
- * Values marked PLACEHOLDER are samples for the proposal concept and must be
- * replaced with PHSA's real details before launch.
+ * Contact details are PHSA's own. Values still marked PLACEHOLDER are samples
+ * for the concept and must be replaced before launch.
  */
 
 export const SITE = {
@@ -14,10 +14,11 @@ export const SITE = {
   legalName: 'PH Substance Abuse Solutions, LLC',
   monogram: 'PH',
   state: 'Texas',
-  /** PLACEHOLDER — awaiting PHSA's published number. */
-  phone: { display: '(000) 000-0000', e164: '+10000000000', placeholder: true },
-  /** PLACEHOLDER — awaiting PHSA's business address for the record. */
-  email: { display: 'hello@phsa-placeholder.com', placeholder: true },
+  /** Supplied by Patricia A. Haynes, PH Substance Abuse Solutions. */
+  phone: { display: '(512) 887-4156', e164: '+15128874156', placeholder: false },
+  email: { display: 'phsasolutions@outlook.com', placeholder: false },
+  domain: 'phsubstanceabusesolutions.org',
+  contactName: 'Patricia A. Haynes',
   /** PLACEHOLDER — awaiting the TDLR provider licence number. */
   license: { number: '0000000', placeholder: true },
   timeZone: 'America/Chicago',
