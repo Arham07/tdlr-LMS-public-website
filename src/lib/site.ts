@@ -64,7 +64,7 @@ export interface NavLink {
 export const PRIMARY_NAV: readonly NavLink[] = [
   { label: 'Program', href: ROUTES.program },
   { label: 'Schedule', href: ROUTES.schedule },
-  { label: 'Who it is for', href: ROUTES.eligibility },
+  { label: "Who it's for", href: ROUTES.eligibility },
   { label: 'Questions', href: ROUTES.faq },
   { label: 'Contact', href: ROUTES.contact },
 ];
@@ -80,7 +80,7 @@ export const FOOTER_NAV: readonly FooterColumn[] = [
     links: [
       { label: 'Drug Offender Education Program', href: ROUTES.program },
       { label: 'Upcoming classes', href: ROUTES.schedule },
-      { label: 'Who it is for', href: ROUTES.eligibility },
+      { label: "Who it's for", href: ROUTES.eligibility },
       { label: 'Fees', href: ROUTES.fees },
     ],
   },

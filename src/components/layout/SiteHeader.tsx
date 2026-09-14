@@ -17,7 +17,7 @@ export function SiteHeader() {
           >
             {SITE.monogram}
           </span>
-          <span className="font-display text-base text-ink leading-tight sm:text-lg">
+          <span className="max-w-[9.5rem] font-display text-base text-ink leading-tight sm:max-w-none sm:text-lg lg:max-w-[10rem] lg:text-base xl:max-w-none xl:text-lg">
             {SITE.name}
           </span>
         </Link>
@@ -28,7 +28,7 @@ export function SiteHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-flex min-h-11 items-center rounded-full px-3 font-medium text-ink text-sm hover:bg-navy-50 hover:text-navy-700"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 font-medium text-ink text-sm hover:bg-navy-50 hover:text-navy-700"
                 >
                   {link.label}
                 </Link>

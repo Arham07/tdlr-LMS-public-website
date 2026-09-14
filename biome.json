@@ -92,15 +92,15 @@
                 "patterns": [
                   {
                     "group": [
-                      "@/content/*",
-                      "**/content/*",
                       "gsap",
                       "gsap/*",
                       "@gsap/react",
                       "lenis",
-                      "lenis/*"
+                      "lenis/*",
+                      "@/content/home",
+                      "@/content/images"
                     ],
-                    "message": "Sections and UI primitives are pure: data arrives as props (from app/page.tsx) and motion is attached by components/motion/*."
+                    "message": "Sections and UI primitives are pure: content data arrives as props (from app/page.tsx); importing @/content/types is fine and motion is attached by components/motion/*."
                   }
                 ]
               }
@@ -119,8 +119,8 @@
               "options": {
                 "patterns": [
                   {
-                    "group": ["@/content/*", "**/content/*", "@/components/sections/*"],
-                    "message": "Motion and interactive components take props only; they never import content or sections."
+                    "group": ["@/components/sections/*", "@/content/home", "@/content/images"],
+                    "message": "Motion and interactive components take props only; they never import content data or sections."
                   }
                 ]
               }
@@ -139,7 +139,7 @@
               "options": {
                 "patterns": [
                   {
-                    "group": ["@/components/*", "@/content/*", "@/app/*"],
+                    "group": ["@/components/*", "@/app/*", "@/content/home", "@/content/images"],
                     "message": "lib/* are leaf modules: they must not import components, content or app code."
                   }
                 ]
