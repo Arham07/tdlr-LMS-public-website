@@ -150,7 +150,7 @@
       }
     },
     {
-      "includes": ["**/*.test.ts", "**/*.test.tsx", "src/test/**"],
+      "includes": ["**/*.test.ts", "**/*.test.tsx", "src/test/**", "scripts/**"],
       "linter": {
         "rules": {
           "suspicious": {

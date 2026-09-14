@@ -2,7 +2,7 @@
 
 import { type ReactNode, useRef } from 'react';
 import { gsap, SplitText, useGSAP } from '@/lib/gsap';
-import { MOTION_OK } from '@/lib/motion';
+import { isMotionAllowed, MOTION_OK } from '@/lib/motion';
 
 /** Longest we wait for webfonts before revealing the hero anyway. */
 const FONT_TIMEOUT_MS = 1200;
@@ -28,7 +28,7 @@ export function HeroIntro({ children }: { children: ReactNode }) {
 
       mm.add({ motionOk: MOTION_OK, desktop: '(min-width: 64rem)' }, (context) => {
         const conditions = context.conditions;
-        if (!conditions?.motionOk) return;
+        if (!conditions?.motionOk || !isMotionAllowed()) return;
 
         const title = root.querySelector<HTMLElement>('[data-hero="title"]');
         const supporting = root.querySelectorAll<HTMLElement>(

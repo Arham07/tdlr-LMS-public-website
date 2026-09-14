@@ -26,6 +26,18 @@ function getSnapshot(): boolean {
 }
 
 /**
+ * Whether animation may run right now.
+ *
+ * `gsap.matchMedia(MOTION_OK)` alone would miss the development override,
+ * so every motion component checks this as well. Keeping the media query in
+ * matchMedia means GSAP still reverts its work if the visitor changes the
+ * system preference mid-session.
+ */
+export function isMotionAllowed(): boolean {
+  return !getSnapshot();
+}
+
+/**
  * True when animation should be suppressed.
  *
  * The server snapshot is `false` so the markup React renders on the server and

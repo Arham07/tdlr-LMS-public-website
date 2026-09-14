@@ -1,7 +1,7 @@
 'use client';
 
 import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
-import { MOTION_OK } from '@/lib/motion';
+import { isMotionAllowed, MOTION_OK } from '@/lib/motion';
 
 /**
  * Reveals every `[data-reveal]` element as it enters the viewport and counts
@@ -20,6 +20,8 @@ export function RevealController() {
     const mm = gsap.matchMedia();
 
     mm.add(MOTION_OK, () => {
+      if (!isMotionAllowed()) return;
+
       const items = gsap.utils.toArray<HTMLElement>('[data-reveal]');
       gsap.set(items, { autoAlpha: 0, y: 24 });
 

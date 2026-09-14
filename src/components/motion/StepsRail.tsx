@@ -2,7 +2,7 @@
 
 import { type ReactNode, useRef } from 'react';
 import { gsap, useGSAP } from '@/lib/gsap';
-import { MOTION_OK } from '@/lib/motion';
+import { isMotionAllowed, MOTION_OK } from '@/lib/motion';
 
 /**
  * Draws the connector between the numbered steps as the reader scrolls.
@@ -21,6 +21,8 @@ export function StepsRail({ children }: { children: ReactNode }) {
 
       const mm = gsap.matchMedia();
       mm.add(MOTION_OK, () => {
+        if (!isMotionAllowed()) return;
+
         for (const segment of root.querySelectorAll<HTMLElement>('[data-rail]')) {
           const step = segment.parentElement;
           if (!step) continue;
