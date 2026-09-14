@@ -23,7 +23,7 @@ export function QuickFacts({ title, items }: QuickFactsProps) {
           {items.map((item) => (
             <div key={item.id} data-reveal>
               <Icon name={item.icon} className="text-gold-500" size={22} />
-              <dt className="mt-3 font-display text-display-md text-ink">
+              <dt className="mt-3 font-display font-extrabold text-display-md text-ink">
                 {item.numeric === undefined ? (
                   item.value
                 ) : (

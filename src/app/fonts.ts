@@ -1,29 +1,26 @@
-import { Manrope, Poppins } from 'next/font/google';
+import { Figtree } from 'next/font/google';
 
 /**
- * Display face: headings, stat numbers, the wordmark and card labels.
+ * The page runs on one family, as the reference provider does.
  *
- * Poppins is a geometric sans and gives the page the friendly, modern look of
- * the course providers PHSA referenced. It is not a variable font, so each
- * weight is a separate file: 400 for the wordmark, 600 for headings and
- * labels. Adding a weight here adds a download, so only add one the design
- * actually uses.
+ * texascourtclasses.com sets everything in Avenir — Book for text, Black for
+ * headings — which is where its cohesive, heavy-headline look comes from.
+ * Avenir is a commercial Monotype face and cannot be used here, so this is
+ * Figtree: the closest free geometric-humanist match, with the same generous
+ * x-height and the heavy weights the headlines need.
+ *
+ * It is variable, so the whole 300–900 range arrives in a single file and the
+ * contrast between body text and headings costs nothing extra.
  */
-export const displayFont = Poppins({
+export const displayFont = Figtree({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '600'],
   variable: '--font-display-face',
 });
 
 /**
- * Text face: body copy, navigation, buttons and all UI.
- *
- * Kept separate from Poppins, which is wide and tiring in long paragraphs at
- * small sizes. Manrope is variable, so its whole weight range is one file.
+ * Same family, exported under a second name so the design tokens keep their
+ * separate display and body slots. Split them into two families here if the
+ * two roles ever need to diverge.
  */
-export const bodyFont = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-body-face',
-});
+export const bodyFont = displayFont;

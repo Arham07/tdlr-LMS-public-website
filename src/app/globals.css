@@ -63,7 +63,7 @@
    var(--font-*) at the element so the fallback stack survives. */
 @theme inline {
   --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Header state toggled by ScrollTrigger (components/layout/HeaderChrome.tsx). */
@@ -79,9 +79,16 @@
     overflow: hidden;
   }
 
-  :where(h1, h2, h3) {
+  /* Not :where() here. Tailwind's reset sets `h1..h6 { font-weight: inherit }`
+     at specificity (0,0,1), which beats a zero-specificity :where() selector,
+     so headings silently rendered at the body weight. A bare element selector
+     ties on specificity and wins by coming later in the same layer, while a
+     utility class on the element still overrides it. */
+  h1,
+  h2,
+  h3 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 800;
     text-wrap: balance;
   }
 
