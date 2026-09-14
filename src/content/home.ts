@@ -57,6 +57,35 @@ export const HOME: HomeContent = {
     ],
   },
 
+  programs: {
+    eyebrow: 'Programs',
+    title: 'What we teach',
+    lede: 'PHSA teaches one program today, and the website and student system are built so further programs slot in later without rebuilding anything.',
+    items: [
+      {
+        id: 'doep',
+        status: 'enrolling',
+        statusLabel: 'Enrolling now',
+        title: 'Drug Offender Education Program',
+        body: 'The 15-hour program Texas courts order after many drug-related offences, and the one required to reinstate a driver licence suspended after a drug conviction. Taught live by a licensed instructor over five evenings.',
+        meta: ['15 hours', '5 evenings', 'Live on Zoom', '$110'],
+        links: [
+          { label: 'See upcoming classes', href: ROUTES.schedule },
+          { label: 'What the program covers', href: ROUTES.program },
+        ],
+      },
+      {
+        id: 'future',
+        status: 'planned',
+        statusLabel: 'Planned',
+        title: 'More programs as PHSA grows',
+        body: 'Further education programs and services are planned. Each new one uses the same registration, payment, attendance and records system, so adding a program is a content change rather than a second website.',
+        meta: [],
+        links: [{ label: 'Ask us what is coming', href: ROUTES.contact }],
+      },
+    ],
+  },
+
   howItWorks: {
     eyebrow: 'How it works',
     title: 'Six steps from here to your certificate',

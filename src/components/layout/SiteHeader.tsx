@@ -29,7 +29,7 @@ export function SiteHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-3 font-medium text-ink text-sm hover:bg-navy-50 hover:text-navy-700"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-full px-2.5 font-medium text-ink text-sm hover:bg-navy-50 hover:text-navy-700"
                 >
                   {link.label}
                 </Link>
@@ -44,11 +44,11 @@ export function SiteHeader() {
             className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full px-3 font-medium text-navy-700 text-sm hover:bg-navy-50"
           >
             <Icon name="phone" size={18} />
-            <span className="hidden xl:inline">{SITE.phone.display}</span>
-            <span className="sr-only xl:hidden">Call {SITE.name}</span>
+            <span className="hidden 2xl:inline">{SITE.phone.display}</span>
+            <span className="sr-only 2xl:hidden">Call {SITE.name}</span>
           </a>
 
-          <span className="hidden lg:block">
+          <span className="hidden xl:block">
             <Button href={ROUTES.login} variant="ghost">
               Student login
             </Button>

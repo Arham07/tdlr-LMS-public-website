@@ -38,6 +38,7 @@ export const SHOW_PLACEHOLDER_TAGS = true;
  */
 export const ROUTES = {
   home: '/',
+  programsSection: '#programs',
   program: '#program',
   schedule: '#schedule',
   eligibility: '#eligibility',
@@ -62,7 +63,7 @@ export interface NavLink {
 }
 
 export const PRIMARY_NAV: readonly NavLink[] = [
-  { label: 'Program', href: ROUTES.program },
+  { label: 'Programs', href: ROUTES.programsSection },
   { label: 'Schedule', href: ROUTES.schedule },
   { label: "Who it's for", href: ROUTES.eligibility },
   { label: 'Questions', href: ROUTES.faq },
@@ -78,6 +79,7 @@ export const FOOTER_NAV: readonly FooterColumn[] = [
   {
     title: 'Program',
     links: [
+      { label: 'All programs', href: ROUTES.programsSection },
       { label: 'Drug Offender Education Program', href: ROUTES.program },
       { label: 'Upcoming classes', href: ROUTES.schedule },
       { label: "Who it's for", href: ROUTES.eligibility },

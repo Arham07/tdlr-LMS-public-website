@@ -7,6 +7,7 @@ import { FinalCta } from '@/components/sections/FinalCta';
 import { Hero } from '@/components/sections/Hero';
 import { HowItWorks } from '@/components/sections/HowItWorks';
 import { ProgramDetails } from '@/components/sections/ProgramDetails';
+import { Programs } from '@/components/sections/Programs';
 import { QuickFacts } from '@/components/sections/QuickFacts';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { UpcomingClasses } from '@/components/sections/UpcomingClasses';
@@ -59,6 +60,13 @@ export default function Home() {
       />
 
       <QuickFacts title={HOME.stats.title} items={HOME.stats.items} />
+
+      <Programs
+        eyebrow={HOME.programs.eyebrow}
+        title={HOME.programs.title}
+        lede={HOME.programs.lede}
+        items={HOME.programs.items}
+      />
 
       <HowItWorks
         eyebrow={HOME.howItWorks.eyebrow}

@@ -73,6 +73,19 @@ export interface ClassSession extends Placeholder {
   registerHref: string;
 }
 
+/** A course in the catalogue. Payload: one document in `Programs`. */
+export interface ProgramCard {
+  id: string;
+  status: 'enrolling' | 'planned';
+  /** Short badge shown above the title, e.g. "Enrolling now". */
+  statusLabel: string;
+  title: string;
+  body: string;
+  /** Quick facts printed as a single meta row; empty for a planned program. */
+  meta: readonly string[];
+  links: readonly Cta[];
+}
+
 export interface Feature {
   id: string;
   title: string;
@@ -118,6 +131,12 @@ export interface HomeContent {
   stats: {
     title: string;
     items: readonly Stat[];
+  };
+  programs: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    items: readonly ProgramCard[];
   };
   howItWorks: {
     eyebrow: string;
