@@ -30,6 +30,17 @@ npm run dev
 A standing TDLR notice, then: hero, at a glance, programs, how it works, upcoming classes, what the
 program covers, who it is for, reviews, find an attorney, questions, and a closing call to action.
 
+**The programs grid shows six courses in three states.** The Drug Offender Education Program has
+published class dates, so its button goes to the schedule. DWI Education, DWI Intervention, Victim
+Impact Panel and Alcohol Education for Minors are shown as offered and point at the phone, because
+their dates are not published. Substance Abuse Evaluation is marked coming soon and deliberately
+carries nothing to focus or click.
+
+> **Unconfirmed claim.** Both source documents place programs other than the DOEP in a later phase.
+> Showing four of them as offered, under separately regulated names and with sample prices, goes
+> beyond what PHSA has confirmed. Patricia should sign off on the program list and the four prices
+> before this page is shown outside the project.
+
 The structure follows the two Texas providers Patricia Haynes gave as references —
 texascourtclasses.com and texasdwiclasses.com. Both open with a notice of the legal basis for
 teaching court-ordered classes online, lead with a photographic hero carrying tick-list proof
@@ -96,8 +107,9 @@ the page (switch them off with `SHOW_PLACEHOLDER_TAGS` in `src/lib/site.ts`):
 | Placeholder | Where |
 |---|---|
 | TDLR provider licence number | `src/lib/site.ts` |
-| Class dates, seat counts and the $110 fee | `src/content/home.ts` |
-| Three student reviews | `src/content/home.ts` |
+| Class dates, seat counts and the $110 DOEP fee | `src/content/home.ts` |
+| Prices for the four other programs ($110, $275, $50, $75) | `src/content/home.ts` |
+| Two student reviews | `src/content/home.ts` |
 | TDLR complaint notice wording | `src/components/layout/SiteFooter.tsx` |
 | Four photographs | `src/assets/placeholders/` — see `CREDITS.md` there |
 
@@ -128,3 +140,7 @@ it, and without a native listener the page stayed scroll-locked after the sheet 
 
 **Reviews, dates and fees are visibly marked as samples.** PHSA is launching, so it has no reviews and
 no published schedule yet. Nothing invented is presented as fact.
+
+**Every schedule row names its course.** A session carries a `programId`, and the row shows the short
+program name, so a row read on its own still says what it teaches. The table is course-aware now
+rather than being retrofitted when PHSA publishes dates for a second program.
