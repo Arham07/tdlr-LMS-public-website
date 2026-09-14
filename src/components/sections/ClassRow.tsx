@@ -68,7 +68,11 @@ export function ClassRow({ session }: { session: ClassRowData }) {
           Register
           <span className="sr-only"> for the class starting {session.dateRange}</span>
         </Button>
-        {session.isPlaceholder ? <PlaceholderTag className="hidden md:inline-flex" /> : null}
+        {session.isPlaceholder ? (
+          <span className="hidden md:block">
+            <PlaceholderTag />
+          </span>
+        ) : null}
       </div>
     </li>
   );

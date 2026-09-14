@@ -72,7 +72,7 @@
   },
   "overrides": [
     {
-      "includes": ["src/app/**", "next.config.ts", "vitest.config.ts", "postcss.config.mjs"],
+      "includes": ["src/app/**", "next.config.ts", "vitest.config.mts", "postcss.config.mjs"],
       "linter": {
         "rules": {
           "style": {

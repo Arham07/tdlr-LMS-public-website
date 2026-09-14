@@ -3,7 +3,7 @@
 import { useLenis } from 'lenis/react';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import { useCallback, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { PRIMARY_NAV, ROUTES, SITE } from '@/lib/site';
 
@@ -17,6 +17,7 @@ import { PRIMARY_NAV, ROUTES, SITE } from '@/lib/site';
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLSpanElement>(null);
   const menuId = useId();
   const titleId = useId();
   const lenis = useLenis();
@@ -31,29 +32,43 @@ export function MobileMenu() {
     dialogRef.current?.close();
   }, []);
 
-  const handleClose = useCallback(() => {
-    lenis?.start();
-    setOpen(false);
+  // The dialog's own `close` event is the single place the sheet is torn down,
+  // so Escape, the close button and a link tap all restore scrolling. It is
+  // wired natively because `close` does not bubble and React's onClose does not
+  // fire for it here.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => {
+      lenis?.start();
+      setOpen(false);
+      triggerRef.current?.querySelector('button')?.focus();
+    };
+
+    dialog.addEventListener('close', handleClose);
+    return () => dialog.removeEventListener('close', handleClose);
   }, [lenis]);
 
   return (
     <>
-      <Button
-        onClick={openMenu}
-        variant="ghost"
-        aria-expanded={open}
-        aria-controls={menuId}
-        aria-label="Open menu"
-        className="px-3 lg:hidden"
-      >
-        <Menu size={20} strokeWidth={1.75} aria-hidden="true" />
-      </Button>
+      <span ref={triggerRef} className="lg:hidden">
+        <Button
+          onClick={openMenu}
+          variant="ghost"
+          aria-expanded={open}
+          aria-controls={menuId}
+          aria-label="Open menu"
+          className="px-3"
+        >
+          <Menu size={20} strokeWidth={1.75} aria-hidden="true" />
+        </Button>
+      </span>
 
       <dialog
         ref={dialogRef}
         id={menuId}
         aria-labelledby={titleId}
-        onClose={handleClose}
         className="m-0 h-dvh max-h-none w-screen max-w-none bg-ground p-0 text-ink backdrop:bg-navy-900/40 open:flex open:flex-col"
       >
         <div className="flex h-nav shrink-0 items-center justify-between px-5">

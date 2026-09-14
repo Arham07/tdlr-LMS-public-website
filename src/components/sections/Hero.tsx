@@ -40,7 +40,9 @@ export function Hero({ content, image, cardRows, cardPrice, phoneIsPlaceholder }
               <Button href={content.secondaryCta.href} variant="secondary">
                 {content.secondaryCta.label}
               </Button>
-              {phoneIsPlaceholder ? <PlaceholderTag>Sample number</PlaceholderTag> : null}
+              {phoneIsPlaceholder ? (
+                <PlaceholderTag className="self-start">Sample number</PlaceholderTag>
+              ) : null}
             </div>
 
             <ul data-hero="trust" className="mt-10 flex flex-wrap gap-x-6 gap-y-3">

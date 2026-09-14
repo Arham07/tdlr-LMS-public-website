@@ -30,8 +30,11 @@ interface ActionButtonProps extends CommonProps {
 
 export type ButtonProps = LinkButtonProps | ActionButtonProps;
 
+// `inline-flex` here would beat a `hidden` passed by a caller, since both are
+// display utilities of equal specificity. Callers wrap the button in an element
+// that controls visibility instead.
 const BASE =
-  'inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-center font-semibold text-sm transition-colors duration-200 motion-reduce:transition-none';
+  'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-center font-semibold text-sm transition-colors duration-200 motion-reduce:transition-none';
 
 const VARIANT_CLASS: Record<ButtonVariant, string> = {
   primary: 'bg-navy-700 text-white hover:bg-navy-500',

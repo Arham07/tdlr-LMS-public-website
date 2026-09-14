@@ -17,18 +17,26 @@ interface FaqAccordionProps {
  * handling. The panel is a <section> named by its question, which gives it the
  * region role without an explicit ARIA attribute. Panels collapse by animating a grid row from 0fr to 1fr and switch
  * to `invisible`, which takes the hidden content out of the tab order and out
- * of the accessibility tree. Items open independently.
+ * of the accessibility tree. Answers open independently, so a reader can
+ * compare two of them.
  */
 export function FaqAccordion({ items }: FaqAccordionProps) {
   const baseId = useId();
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [openIds, setOpenIds] = useState<ReadonlySet<string>>(() => new Set());
+
+  const toggle = (id: string) =>
+    setOpenIds((current) => {
+      const next = new Set(current);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
 
   return (
     <ul className="divide-y divide-line border-line border-y">
       {items.map((item) => {
         const questionId = `${baseId}-q-${item.id}`;
         const panelId = `${baseId}-a-${item.id}`;
-        const isOpen = openId === item.id;
+        const isOpen = openIds.has(item.id);
 
         return (
           <li key={item.id} data-reveal>
@@ -38,7 +46,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                 id={questionId}
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                onClick={() => setOpenId(isOpen ? null : item.id)}
+                onClick={() => toggle(item.id)}
                 className="flex min-h-11 w-full items-center justify-between gap-4 py-5 text-left font-display text-ink text-lg"
               >
                 {item.question}
