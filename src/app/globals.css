@@ -1,1 +1,125 @@
 @import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   PHSA design tokens — the single source of truth for every colour, type size,
+   space, radius and shadow used in the app. Components must not contain raw
+   colour values; they use the Tailwind utilities generated from these tokens.
+   Palette: "academic navy + gold" (see README → Decisions).
+--------------------------------------------------------------------------- */
+@theme {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-ground: #f7f6f2;
+  --color-surface: #ffffff;
+  --color-ink: #0b1b33;
+  --color-muted: #55627a;
+  --color-line: #e3e1da;
+
+  --color-navy-900: #06162e;
+  --color-navy-700: #0b2a55;
+  --color-navy-500: #1e4b8f;
+  --color-navy-100: #dce5f2;
+  --color-navy-50: #eef3fa;
+
+  --color-gold-500: #c99a2e;
+  --color-gold-200: #f1e3bd;
+  --color-gold-100: #faf3e0;
+
+  --color-teal-600: #147d73;
+  --color-teal-100: #dcefeb;
+
+  --text-display-xl: clamp(2.375rem, 1.55rem + 3.7vw, 4.25rem);
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-lg: clamp(1.875rem, 1.35rem + 2.2vw, 3rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.015em;
+  --text-display-md: clamp(1.375rem, 1.15rem + 1vw, 1.875rem);
+  --text-display-md--line-height: 1.15;
+  --text-lede: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-lede--line-height: 1.55;
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.08em;
+
+  --container-content: 72rem;
+  --container-prose: 42rem;
+
+  --spacing-nav: 4.5rem;
+  --spacing-section: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+
+  --radius-ui: 0.75rem;
+  --radius-card: 1.25rem;
+
+  --shadow-card: 0 1px 2px rgb(11 27 51 / 0.04), 0 10px 30px -12px rgb(11 27 51 / 0.1);
+  --shadow-float: 0 2px 6px rgb(11 27 51 / 0.05), 0 30px 70px -30px rgb(6 22 46 / 0.35);
+}
+
+/* next/font sets these variables on <html>; `inline` makes the utilities emit
+   var(--font-*) at the element so the fallback stack survives. */
+@theme inline {
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Header state toggled by ScrollTrigger (components/layout/HeaderChrome.tsx). */
+@custom-variant scrolled (&:where(.is-scrolled, .is-scrolled *));
+
+@layer base {
+  html {
+    scroll-padding-top: calc(var(--spacing-nav) + 1rem);
+  }
+
+  /* Lock the page while the mobile navigation sheet is open. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  :where(h1, h2, h3) {
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-wrap: balance;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 40, "WONK" 0;
+  }
+
+  :where(p, li) {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-navy-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-gold-200);
+  }
+
+  ::selection {
+    background: var(--color-gold-200);
+    color: var(--color-ink);
+  }
+
+  /* SplitText line masks clip descenders without this breathing room. */
+  .hero-line-mask {
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

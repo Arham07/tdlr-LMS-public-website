@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <main>
-      <div>Hello world!</div>
-    </main>
-  );
+  return <div className="py-section">Sections follow.</div>;
 }
