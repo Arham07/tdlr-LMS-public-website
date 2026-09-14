@@ -7,14 +7,10 @@ export function SiteFooter() {
   return (
     <footer className="on-dark bg-navy-900 py-16 text-navy-100">
       <Container>
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,minmax(0,1fr))]">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1fr_repeat(3,minmax(0,1fr))]">
           <div>
             <p className="font-display text-white text-xl">{SITE.name}</p>
-            <p className="mt-3 max-w-xs text-sm">
-              A {SITE.state} provider of the 15-hour Drug Offender Education Program, licensed by
-              the Texas Department of Licensing and Regulation.
-            </p>
-            <p className="mt-4 text-sm">
+            <p className="mt-3 text-sm">
               TDLR provider licence #{SITE.license.number}{' '}
               {SITE.license.placeholder ? <PlaceholderTag onDark>Sample</PlaceholderTag> : null}
             </p>

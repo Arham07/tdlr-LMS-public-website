@@ -1,122 +1,118 @@
 import type { StaticImageData } from 'next/image';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { Icon } from '@/components/ui/Icon';
+import { PlaceholderTag } from '@/components/ui/Placeholder';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import type { ProgramCard } from '@/content/types';
 import { cx } from '@/lib/cx';
 
+type ProgramCardWithImage = ProgramCard & {
+  image: { src: StaticImageData; alt: string };
+};
+
 interface ProgramsProps {
   eyebrow: string;
   title: string;
-  lede: string;
-  items: readonly ProgramCard[];
-  image: { src: StaticImageData; alt: string };
+  note: string;
+  items: readonly ProgramCardWithImage[];
 }
 
 /**
- * The course catalogue, laid out as the picture-led cards the reference
- * providers use.
+ * The course catalogue, as the picture-card grid both reference providers use.
  *
- * PHSA teaches one program at launch, so the enrolling card carries the
- * photograph and the detail while the planned card stays deliberately plain.
- * A visitor should never mistake a future program for one they can book.
+ * Three states, because the programs genuinely differ. The DOEP has published
+ * class dates, so its button goes to the schedule. Four programs are taught
+ * but have no published dates, so theirs go to the phone rather than to a
+ * dead registration link. The one that is not taught yet is desaturated,
+ * badged, priced at nothing and carries no button at all, so there is nothing
+ * on the card to focus or click.
  */
-export function Programs({ eyebrow, title, lede, items, image }: ProgramsProps) {
+export function Programs({ eyebrow, title, note, items }: ProgramsProps) {
   return (
     <Section id="programs" labelledBy="programs-title" tone="surface">
       <Container>
-        <SectionHeading id="programs-title" eyebrow={eyebrow} title={title} lede={lede} />
+        <SectionHeading id="programs-title" eyebrow={eyebrow} title={title} />
 
-        <ul className="mt-12 grid gap-6 lg:grid-cols-[1.55fr_1fr]">
+        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => {
-            const enrolling = item.status === 'enrolling';
+            const comingSoon = item.status === 'coming-soon';
 
             return (
               <li
                 key={item.id}
                 data-reveal
-                className={cx(
-                  'flex flex-col overflow-hidden rounded-card border',
-                  enrolling
-                    ? 'border-line bg-surface shadow-card'
-                    : // Hug the content rather than stretching to match the
-                      // enrolling card, which is much taller.
-                      'self-start border-line border-dashed',
-                )}
+                className="flex flex-col overflow-hidden rounded-card border border-line bg-surface shadow-card"
               >
-                {enrolling ? (
-                  <div className="relative">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      placeholder="blur"
-                      className="aspect-[16/7] w-full object-cover"
-                    />
-                    <span className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-teal-600 px-3 py-1.5 font-semibold text-white text-xs uppercase tracking-wide">
-                      <Icon name="check" size={14} />
-                      {item.statusLabel}
-                    </span>
-                  </div>
-                ) : null}
-
-                <div className="flex flex-1 flex-col p-6 sm:p-8">
-                  {enrolling ? null : (
-                    <span className="inline-flex w-fit items-center rounded-full bg-navy-50 px-3 py-1.5 font-semibold text-navy-700 text-xs uppercase tracking-wide">
-                      {item.statusLabel}
-                    </span>
-                  )}
-
-                  <p
+                <div className="relative bg-navy-50">
+                  <Image
+                    src={item.image.src}
+                    alt=""
+                    aria-hidden="true"
+                    sizes="(min-width: 1024px) 22rem, (min-width: 640px) 45vw, 100vw"
+                    {...(item.status === 'enrolling' ? { placeholder: 'blur' as const } : {})}
                     className={cx(
-                      'font-semibold text-sm uppercase tracking-wide',
-                      enrolling ? 'text-gold-500' : 'mt-4 text-muted',
+                      'aspect-[3/2] w-full object-cover',
+                      comingSoon && 'opacity-60 grayscale',
                     )}
+                  />
+
+                  {/* Opaque, because a translucent band over an arbitrary
+                      photograph has no contrast ratio we can audit. Hidden from
+                      assistive tech: the heading below carries the same name. */}
+                  <p
+                    aria-hidden="true"
+                    className="-translate-y-1/2 absolute inset-x-0 top-1/2 bg-surface px-4 py-2 text-center font-display font-semibold text-ink tracking-wide"
                   >
-                    {item.format}
+                    {item.bandLabel}
                   </p>
 
-                  <h3
-                    className={cx('mt-2', enrolling ? 'text-display-md' : 'font-display text-xl')}
-                  >
-                    {item.title}
-                  </h3>
+                  {item.statusLabel ? (
+                    <span
+                      className={cx(
+                        'absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-semibold text-xs uppercase tracking-wide',
+                        comingSoon ? 'bg-navy-50 text-navy-700' : 'bg-teal-600 text-white',
+                      )}
+                    >
+                      {comingSoon ? null : <Icon name="check" size={14} />}
+                      {item.statusLabel}
+                    </span>
+                  ) : null}
+                </div>
 
-                  {item.meta.length > 0 ? (
-                    <ul className="mt-4 flex flex-wrap items-center gap-2">
-                      {item.meta.map((fact) => (
-                        <li
-                          key={fact}
-                          className="rounded-full bg-navy-50 px-3 py-1 font-medium text-navy-700 text-sm"
-                        >
-                          {fact}
-                        </li>
-                      ))}
-                    </ul>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-display text-ink text-lg">{item.title}</h3>
+                  <p className="mt-1 text-muted text-sm">{item.hoursLabel}</p>
+
+                  {item.priceLabel ? (
+                    <p className="mt-2 font-semibold text-ink">{item.priceLabel}</p>
                   ) : null}
 
-                  <p className="mt-4 flex-1 text-muted">{item.body}</p>
+                  {item.body ? <p className="mt-3 text-muted text-sm">{item.body}</p> : null}
 
-                  <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-                    {item.links.map((link) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-navy-700 text-sm underline-offset-4 hover:underline"
-                      >
-                        {link.label}
-                        <span aria-hidden="true">&rarr;</span>
-                      </Link>
-                    ))}
+                  <div className="mt-5 flex flex-1 items-end">
+                    {item.cta ? (
+                      <Button href={item.cta.href} block>
+                        {item.cta.label}
+                      </Button>
+                    ) : (
+                      <p className="flex items-center gap-2 text-muted text-sm">
+                        Not yet available
+                        <PlaceholderTag>Planned</PlaceholderTag>
+                      </p>
+                    )}
                   </div>
                 </div>
               </li>
             );
           })}
         </ul>
+
+        <p data-reveal className="mt-8 text-muted">
+          {note}
+        </p>
       </Container>
     </Section>
   );

@@ -23,11 +23,12 @@ const FORMAT_LABEL: Record<ClassSession['format'], string> = {
 
 /** Dates, times and fees are formatted here, on the server, so client
  *  components never run Intl and hydration can never disagree. */
-function toRowData(session: ClassSession): ClassRowData {
+function toRowData(session: ClassSession, courseLabel: string): ClassRowData {
   const almostFull = session.seatsLeft <= session.capacity / 2;
 
   return {
     id: session.id,
+    courseLabel,
     dateRange: formatDateRange(session.startsOn, session.endsOn),
     daySpan: formatDaySpan(session.startsOn, session.endsOn),
     timeRange: formatTimeRange(session.startTime, session.endTime),
@@ -41,15 +42,23 @@ function toRowData(session: ClassSession): ClassRowData {
 }
 
 export default function Home() {
-  const sessions = HOME.schedule.sessions.map(toRowData);
+  const programById = new Map(HOME.programs.items.map((item) => [item.id, item]));
+  const sessions = HOME.schedule.sessions.map((session) =>
+    toRowData(session, programById.get(session.programId)?.shortName ?? ''),
+  );
   const firstSession = HOME.schedule.sessions[0];
+  const programCards = HOME.programs.items.map((item) => ({
+    ...item,
+    image: IMAGES[item.imageKey],
+  }));
+  const steps = HOME.howItWorks.steps.map((step) => ({ ...step, image: IMAGES[step.imageKey] }));
 
   return (
     <>
       <Hero
         content={HOME.hero}
         image={IMAGES.hero}
-        cardRows={sessions.slice(0, 2).map((session) => ({
+        cardRows={sessions.slice(0, 1).map((session) => ({
           id: session.id,
           dates: session.dateRange,
           detail: `${session.format} · ${session.timeRange}`,
@@ -64,22 +73,28 @@ export default function Home() {
       <Programs
         eyebrow={HOME.programs.eyebrow}
         title={HOME.programs.title}
-        lede={HOME.programs.lede}
-        items={HOME.programs.items}
-        image={IMAGES.program}
+        note={HOME.programs.note}
+        items={programCards}
       />
 
       <HowItWorks
         eyebrow={HOME.howItWorks.eyebrow}
         title={HOME.howItWorks.title}
         lede={HOME.howItWorks.lede}
-        steps={HOME.howItWorks.steps}
+        steps={steps}
       />
 
       <UpcomingClasses
         eyebrow={HOME.schedule.eyebrow}
         title={HOME.schedule.title}
         lede={HOME.schedule.lede}
+        summaryLine={
+          firstSession
+            ? `${programById.get(firstSession.programId)?.title ?? ''} · ${formatPrice(
+                firstSession.priceCents,
+              )} per student · Live on Zoom`
+            : ''
+        }
         sessions={sessions}
         callout={HOME.schedule.callout}
         scheduleIsPlaceholder={sessions.some((session) => session.isPlaceholder)}
@@ -91,11 +106,9 @@ export default function Home() {
         lede={HOME.program.lede}
         topicsTitle={HOME.program.topicsTitle}
         topics={HOME.program.topics}
-        featuresTitle={HOME.program.featuresTitle}
-        features={HOME.program.features}
         rulesTitle={HOME.program.rulesTitle}
         rules={HOME.program.rules}
-        image={IMAGES.program}
+        image={IMAGES.programDetails}
       />
 
       <Eligibility
@@ -109,7 +122,6 @@ export default function Home() {
       <Testimonials
         eyebrow={HOME.testimonials.eyebrow}
         title={HOME.testimonials.title}
-        note={HOME.testimonials.note}
         items={HOME.testimonials.items}
         image={IMAGES.testimonials}
       />

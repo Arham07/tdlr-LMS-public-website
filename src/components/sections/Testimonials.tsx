@@ -11,21 +11,19 @@ import type { Testimonial } from '@/content/types';
 interface TestimonialsProps {
   eyebrow: string;
   title: string;
-  note: string;
   items: readonly Testimonial[];
   image: { src: StaticImageData; alt: string };
 }
 
-export function Testimonials({ eyebrow, title, note, items, image }: TestimonialsProps) {
+export function Testimonials({ eyebrow, title, items, image }: TestimonialsProps) {
   return (
     <Section id="testimonials" labelledBy="testimonials-title">
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_0.75fr] lg:gap-16">
           <div>
             <SectionHeading id="testimonials-title" eyebrow={eyebrow} title={title} />
-            <p className="mt-4 flex flex-wrap items-center gap-2 text-muted text-sm">
-              <PlaceholderTag />
-              {note}
+            <p className="mt-4">
+              <PlaceholderTag>Sample reviews</PlaceholderTag>
             </p>
           </div>
           <Image
@@ -38,7 +36,7 @@ export function Testimonials({ eyebrow, title, note, items, image }: Testimonial
           />
         </div>
 
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2">
           {items.map((item) => (
             <li key={item.id} data-reveal>
               <figure className="flex h-full flex-col rounded-card border border-line bg-surface p-6 shadow-card">

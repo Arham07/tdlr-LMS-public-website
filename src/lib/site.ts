@@ -91,18 +91,9 @@ export const FOOTER_NAV: readonly FooterColumn[] = [
     title: 'Students',
     links: [
       { label: 'Student login', href: ROUTES.login },
-      { label: 'Register for a class', href: ROUTES.register },
       { label: 'Common questions', href: ROUTES.faq },
-      { label: 'Class policies', href: ROUTES.policies },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      { label: 'About us', href: ROUTES.about },
-      { label: 'Contact', href: ROUTES.contact },
       { label: 'Find an attorney', href: ROUTES.findAnAttorney },
-      { label: 'All programs', href: ROUTES.programs },
+      { label: 'Contact', href: ROUTES.contact },
     ],
   },
   {

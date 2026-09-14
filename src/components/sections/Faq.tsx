@@ -7,7 +7,7 @@ import type { FaqItem } from '@/content/types';
 interface FaqProps {
   eyebrow: string;
   title: string;
-  lede: string;
+  lede?: string;
   items: readonly FaqItem[];
 }
 

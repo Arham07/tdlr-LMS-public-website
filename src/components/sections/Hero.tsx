@@ -67,18 +67,7 @@ export function Hero({ content, image, cardRows, cardPrice, licenseLabel }: Hero
               {content.lede}
             </p>
 
-            <ul data-hero="trust" className="mt-8 space-y-3">
-              {content.chips.map((chip) => (
-                <li key={chip.id} className="flex items-start gap-3 text-white">
-                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-teal-600">
-                    <Icon name={chip.icon} size={15} className="text-white" />
-                  </span>
-                  {chip.label}
-                </li>
-              ))}
-            </ul>
-
-            <div data-hero="cta" className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div data-hero="cta" className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button href={content.primaryCta.href} variant="onDark">
                 {content.primaryCta.label}
               </Button>

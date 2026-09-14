@@ -9,7 +9,9 @@ import { ClassRow, type ClassRowData } from './ClassRow';
 interface UpcomingClassesProps {
   eyebrow: string;
   title: string;
-  lede: string;
+  lede?: string;
+  /** One line naming the course, the fee and how it is delivered. */
+  summaryLine: string;
   sessions: readonly ClassRowData[];
   callout: { title: string; body: string; cta: Cta };
   scheduleIsPlaceholder: boolean;
@@ -19,6 +21,7 @@ export function UpcomingClasses({
   eyebrow,
   title,
   lede,
+  summaryLine,
   sessions,
   callout,
   scheduleIsPlaceholder,
@@ -27,7 +30,10 @@ export function UpcomingClasses({
     <Section id="schedule" labelledBy="schedule-title" tone="surface">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading id="schedule-title" eyebrow={eyebrow} title={title} lede={lede} />
+          <div>
+            <SectionHeading id="schedule-title" eyebrow={eyebrow} title={title} lede={lede} />
+            <p className="mt-3 font-semibold text-ink">{summaryLine}</p>
+          </div>
           {scheduleIsPlaceholder ? <PlaceholderTag>Sample schedule</PlaceholderTag> : null}
         </div>
 
@@ -35,9 +41,9 @@ export function UpcomingClasses({
             elements carry the same information for assistive technology. */}
         <div
           aria-hidden="true"
-          className="mt-10 hidden grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto_auto_auto] gap-5 border-line border-b px-5 pb-3 font-medium text-muted text-xs uppercase tracking-wide md:grid"
+          className="mt-8 hidden grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,1fr)_auto_auto_auto] gap-5 border-line border-b px-5 pb-3 font-medium text-muted text-xs uppercase tracking-wide md:grid"
         >
-          <span>Dates</span>
+          <span>Course and dates</span>
           <span>Time</span>
           <span>Format</span>
           <span>Seats</span>

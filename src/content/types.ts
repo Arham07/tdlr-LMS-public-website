@@ -1,7 +1,8 @@
 import type { StaticImageData } from 'next/image';
 import type { IconName } from '@/lib/icons';
+import type { ImageKey } from '@/lib/imageKeys';
 
-export type { IconName };
+export type { IconName, ImageKey };
 
 /**
  * Content shapes for the public homepage.
@@ -22,19 +23,12 @@ export interface Cta {
   href: string;
 }
 
-export interface TrustChip {
-  id: string;
-  label: string;
-  icon: IconName;
-}
-
 export interface Hero {
   eyebrow: string;
   title: string;
   lede: string;
   primaryCta: Cta;
   secondaryCta: Cta;
-  chips: readonly TrustChip[];
   cardTitle: string;
   cardFootnote: string;
 }
@@ -54,11 +48,14 @@ export interface Step {
   title: string;
   body: string;
   icon: IconName;
+  imageKey: ImageKey;
 }
 
 /** Payload: one document in the `Classes` collection. */
 export interface ClassSession extends Placeholder {
   id: string;
+  /** The program this class teaches. Payload: a relationship to `Programs`. */
+  programId: string;
   /** ISO date, first session. */
   startsOn: string;
   /** ISO date, final session. */
@@ -73,26 +70,36 @@ export interface ClassSession extends Placeholder {
   registerHref: string;
 }
 
-/** A course in the catalogue. Payload: one document in `Programs`. */
+/**
+ * A course in the catalogue. Payload: one document in `Programs`.
+ *
+ * A card that is not open for enrolment carries no description and no call to
+ * action, so nothing on it can read as an offer or be clicked.
+ */
 export interface ProgramCard {
   id: string;
-  status: 'enrolling' | 'planned';
-  /** Short badge shown above the title, e.g. "Enrolling now". */
-  statusLabel: string;
+  /**
+   * `enrolling` has published class dates and links to the schedule.
+   * `offered` is taught but has no published dates, so it points at the phone.
+   * `coming-soon` is not taught yet and carries nothing to click.
+   */
+  status: 'enrolling' | 'offered' | 'coming-soon';
+  /** Badge over the photo. Absent for an `offered` program, which needs none. */
+  statusLabel?: string;
   title: string;
-  body: string;
-  /** Format badge, as the reference providers show it, e.g. "15-hour Zoom class". */
-  format: string;
-  /** Quick facts printed as a single meta row; empty for a planned program. */
-  meta: readonly string[];
-  links: readonly Cta[];
-}
-
-export interface Feature {
-  id: string;
-  title: string;
-  body: string;
-  icon: IconName;
+  /** Band across the photo. Set in CSS, never baked into the artwork. */
+  bandLabel: string;
+  /** e.g. "15 hour course". */
+  hoursLabel: string;
+  /** Absent only while a program is not yet taught. */
+  priceLabel?: string;
+  /** Short form used on schedule rows, e.g. "DOEP". */
+  shortName: string;
+  /** Absent for a coming-soon program. */
+  body?: string;
+  imageKey: ImageKey;
+  /** Absent for a coming-soon program, so there is nothing to focus or click. */
+  cta?: Cta;
 }
 
 export interface Topic {
@@ -103,7 +110,6 @@ export interface Topic {
 export interface EligibilityItem {
   id: string;
   title: string;
-  body: string;
   icon: IconName;
 }
 
@@ -140,13 +146,15 @@ export interface HomeContent {
   programs: {
     eyebrow: string;
     title: string;
-    lede: string;
+    /** One line under the grid naming what is actually bookable today. */
+    note: string;
+    lede?: string;
     items: readonly ProgramCard[];
   };
   howItWorks: {
     eyebrow: string;
     title: string;
-    lede: string;
+    lede?: string;
     steps: readonly Step[];
   };
   schedule: {
@@ -159,25 +167,22 @@ export interface HomeContent {
   program: {
     eyebrow: string;
     title: string;
-    lede: string;
+    lede?: string;
     topicsTitle: string;
     topics: readonly Topic[];
-    featuresTitle: string;
-    features: readonly Feature[];
     rulesTitle: string;
     rules: string;
   };
   eligibility: {
     eyebrow: string;
     title: string;
-    lede: string;
+    lede?: string;
     items: readonly EligibilityItem[];
     footnote: string;
   };
   testimonials: {
     eyebrow: string;
     title: string;
-    note: string;
     items: readonly Testimonial[];
   };
   attorney: {
@@ -189,7 +194,7 @@ export interface HomeContent {
   faq: {
     eyebrow: string;
     title: string;
-    lede: string;
+    lede?: string;
     items: readonly FaqItem[];
   };
   finalCta: {
