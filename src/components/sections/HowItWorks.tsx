@@ -35,9 +35,9 @@ export function HowItWorks({ eyebrow, title, lede, steps }: HowItWorksProps) {
                   {index + 1}
                 </span>
 
-                <h3 className="flex items-center gap-2 text-display-md">
-                  <Icon name={step.icon} className="text-gold-500" size={20} />
-                  {step.title}
+                <h3 className="flex items-start gap-2.5 text-display-md">
+                  <Icon name={step.icon} className="mt-1.5 shrink-0 text-gold-500" size={20} />
+                  <span>{step.title}</span>
                 </h3>
                 <p className="mt-2 text-muted">{step.body}</p>
               </li>

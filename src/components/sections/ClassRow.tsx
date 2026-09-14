@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/Button';
 import { Chip } from '@/components/ui/Chip';
-import { PlaceholderTag } from '@/components/ui/Placeholder';
 
 export interface ClassRowData {
   id: string;
@@ -68,11 +67,6 @@ export function ClassRow({ session }: { session: ClassRowData }) {
           Register
           <span className="sr-only"> for the class starting {session.dateRange}</span>
         </Button>
-        {session.isPlaceholder ? (
-          <span className="hidden md:block">
-            <PlaceholderTag />
-          </span>
-        ) : null}
       </div>
     </li>
   );

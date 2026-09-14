@@ -40,7 +40,11 @@ export function Programs({ eyebrow, title, lede, items, image }: ProgramsProps) 
                 data-reveal
                 className={cx(
                   'flex flex-col overflow-hidden rounded-card border',
-                  enrolling ? 'border-line bg-surface shadow-card' : 'border-line border-dashed',
+                  enrolling
+                    ? 'border-line bg-surface shadow-card'
+                    : // Hug the content rather than stretching to match the
+                      // enrolling card, which is much taller.
+                      'self-start border-line border-dashed',
                 )}
               >
                 {enrolling ? (
